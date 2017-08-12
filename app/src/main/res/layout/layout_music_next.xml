@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ImageView
+    android:id="@+id/skip_forward"
+    android:layout_width="120px"
+    android:layout_height="120px"
+    android:layout_gravity="center_vertical|center_horizontal"
+    android:layout_weight="1"
+    app:srcCompat="@drawable/ic_skip_next_black_24dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" />
