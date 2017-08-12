@@ -32,6 +32,7 @@ import android.widget.RemoteViews;
 
 import com.zacharee1.sswidgets.R;
 import com.zacharee1.sswidgets.misc.Values;
+import com.zacharee1.sswidgets.services.MusicService;
 
 import java.util.List;
 
@@ -210,9 +211,9 @@ public class Music extends AppWidgetProvider
             this.title.setTextViewText(R.id.song_info, info.toString());
         }
 
-        Intent backIntent = new Intent(mContext, Music.class);
-        Intent playpauseIntent = new Intent(mContext, Music.class);
-        Intent nextIntent = new Intent(mContext, Music.class);
+        Intent backIntent = new Intent(mContext, MusicService.class);
+        Intent playpauseIntent = new Intent(mContext, MusicService.class);
+        Intent nextIntent = new Intent(mContext, MusicService.class);
 
         backIntent.putExtra(Values.MUSIC_INTENT_ACTION, Values.MUSIC_BACK);
         backIntent.setAction(Values.MUSIC_INTENT_ACTION);
@@ -234,7 +235,7 @@ public class Music extends AppWidgetProvider
 
     private boolean isMusicPlaying()
     {
-        Log.e("MustardCorp", "isMusicActive()" + audioManager.isMusicActive());
+        Log.e("SSWidgets", "isMusicActive()" + audioManager.isMusicActive());
         return audioManager.isMusicActive();
     }
 
