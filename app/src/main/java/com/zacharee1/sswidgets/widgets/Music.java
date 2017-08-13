@@ -48,10 +48,8 @@ public class Music extends AppWidgetProvider
     private Handler mHandler;
     private MediaSessionManager sessionManager;
     private List<MediaController> controllers;
-    private RemoteViews back;
-    private RemoteViews playpause;
-    private RemoteViews next;
-    private RemoteViews title;
+
+    private AppWidgetManager mManager;
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
@@ -59,20 +57,11 @@ public class Music extends AppWidgetProvider
 
         mView = new RemoteViews(context.getPackageName(), R.layout.layout_music);
 
-        back = new RemoteViews(context.getPackageName(), R.layout.layout_music_back);
-        playpause = new RemoteViews(context.getPackageName(), R.layout.layout_music_pp);
-        next = new RemoteViews(context.getPackageName(), R.layout.layout_music_next);
-        title = new RemoteViews(context.getPackageName(), R.layout.layout_music_title);
-
-        mView.addView(R.id.skip_back, back);
-        mView.addView(R.id.play_pause, playpause);
-        mView.addView(R.id.skip_forward, next);
-        mView.addView(R.id.song_info, title);
-
         mContext = context;
         display = ((WindowManager)mContext.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
         audioManager = (AudioManager)mContext.getSystemService(Context.AUDIO_SERVICE);
         sessionManager = (MediaSessionManager) context.getSystemService(Context.MEDIA_SESSION_SERVICE);
+        mManager = appWidgetManager;
 
         mHandler = new Handler(Looper.getMainLooper());
 
@@ -183,14 +172,14 @@ public class Music extends AppWidgetProvider
         int forwardColor = Settings.Global.getInt(mContext.getContentResolver(), "skip_forward_color", Color.WHITE);
         int songColor = Settings.Global.getInt(mContext.getContentResolver(), "song_info_color", Color.WHITE);
 
-        back.setInt(R.id.skip_back, "setColorFilter", backColor);
-        this.playpause.setInt(R.id.play_pause, "setColorFilter", playpauseColor);
-        this.next.setInt(R.id.skip_forward, "setColorFilter", forwardColor);
-        title.setInt(R.id.song_info, "setColorFilter", songColor);
+        mView.setInt(R.id.skip_back, "setColorFilter", backColor);
+        mView.setInt(R.id.play_pause, "setColorFilter", playpauseColor);
+        mView.setInt(R.id.skip_forward, "setColorFilter", forwardColor);
+        mView.setInt(R.id.song_info, "setColorFilter", songColor);
 
-        back.setImageViewResource(R.id.skip_back, R.drawable.ic_skip_previous_black_24dp);
-        this.playpause.setImageViewResource(R.id.play_pause, isMusicPlaying() ? R.drawable.ic_pause_black_24dp : R.drawable.ic_play_arrow_black_24dp);
-        this.next.setImageViewResource(R.id.skip_forward, R.drawable.ic_skip_next_black_24dp);
+        mView.setImageViewResource(R.id.skip_back, R.drawable.ic_skip_previous_black_24dp);
+        mView.setImageViewResource(R.id.play_pause, isMusicPlaying() ? R.drawable.ic_pause_black_24dp : R.drawable.ic_play_arrow_black_24dp);
+        mView.setImageViewResource(R.id.skip_forward, R.drawable.ic_skip_next_black_24dp);
 
         if (controllers != null) {
             String title = controllers.get(0).getMetadata().getString(MediaMetadata.METADATA_KEY_TITLE);
@@ -208,7 +197,7 @@ public class Music extends AppWidgetProvider
                 info.append(mContext.getResources().getString(R.string.play_something));
             }
 
-            this.title.setTextViewText(R.id.song_info, info.toString());
+            mView.setTextViewText(R.id.song_info, info.toString());
         }
 
         Intent backIntent = new Intent(mContext, MusicService.class);
@@ -228,9 +217,9 @@ public class Music extends AppWidgetProvider
         PendingIntent playpause = PendingIntent.getService(mContext, Values.MUSIC_PLAYPAUSE, playpauseIntent, 0);
         PendingIntent next = PendingIntent.getService(mContext, Values.MUSIC_NEXT, nextIntent, 0);
 
-        this.back.setOnClickPendingIntent(R.id.skip_back, back);
-        this.playpause.setOnClickPendingIntent(R.id.play_pause, playpause);
-        this.next.setOnClickPendingIntent(R.id.skip_forward, next);
+        mView.setOnClickPendingIntent(R.id.skip_back, back);
+        mView.setOnClickPendingIntent(R.id.play_pause, playpause);
+        mView.setOnClickPendingIntent(R.id.skip_forward, next);
     }
 
     private boolean isMusicPlaying()
