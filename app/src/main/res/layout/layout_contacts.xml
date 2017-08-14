@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="1040px"
+    android:layout_height="160px"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/contact_1"
+        android:layout_width="120px"
+        android:layout_height="120px"
+        android:layout_weight="1"
+        android:src="@drawable/ic_account_circle_white_24dp" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/contact_2"
+        android:layout_width="120px"
+        android:layout_height="120px"
+        android:layout_weight="1"
+        android:src="@drawable/ic_account_circle_white_24dp" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/contact_3"
+        android:layout_width="120px"
+        android:layout_height="120px"
+        android:layout_weight="1"
+        android:src="@drawable/ic_account_circle_white_24dp" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/contact_4"
+        android:layout_width="120px"
+        android:layout_height="120px"
+        android:layout_weight="1"
+        android:src="@drawable/ic_account_circle_white_24dp" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/contact_5"
+        android:layout_width="120px"
+        android:layout_height="120px"
+        android:layout_weight="1"
+        android:src="@drawable/ic_account_circle_white_24dp" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/contact_6"
+        android:layout_width="120px"
+        android:layout_height="120px"
+        android:layout_weight="1"
+        android:src="@drawable/ic_account_circle_white_24dp" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/contact_7"
+        android:layout_width="120px"
+        android:layout_height="120px"
+        android:layout_weight="1"
+        android:src="@drawable/ic_account_circle_white_24dp" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/contact_8"
+        android:layout_width="120px"
+        android:layout_height="120px"
+        android:layout_weight="1"
+        android:src="@drawable/ic_account_circle_white_24dp" />
+</LinearLayout>

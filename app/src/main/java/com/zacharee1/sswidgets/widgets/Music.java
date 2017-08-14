@@ -76,8 +76,7 @@ public class Music extends AppWidgetProvider
         setColorsAndStates();
         listenForColorChangeOrMusicChange();
 
-        appWidgetManager.updateAppWidget(appWidgetIds[0], mView);
-
+        appWidgetManager.updateAppWidget(appWidgetIds, mView);
     }
 
     @Override
@@ -197,7 +196,7 @@ public class Music extends AppWidgetProvider
         mView.setImageViewResource(R.id.play_pause, isMusicPlaying() ? R.drawable.ic_pause_black_24dp : R.drawable.ic_play_arrow_black_24dp);
         mView.setImageViewResource(R.id.skip_forward, R.drawable.ic_skip_next_black_24dp);
 
-        if (controllers != null && controllers.size() > 0) {
+        if (controllers != null && controllers.size() > 0 && controllers.get(0).getMetadata() != null) {
             String title = controllers.get(0).getMetadata().getString(MediaMetadata.METADATA_KEY_TITLE);
             String artist = controllers.get(0).getMetadata().getString(MediaMetadata.METADATA_KEY_ARTIST);
             String packageName = controllers.get(0).getPackageName();

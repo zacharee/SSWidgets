@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:configure="com.zacharee1.sswidgets.activities.ContactsConfigureActivity"
+    android:initialLayout="@layout/contacts"
+    android:minHeight="160px"
+    android:minWidth="1040px"
+    android:resizeMode="horizontal|vertical"
+    android:updatePeriodMillis="86400000"
+    android:widgetCategory="36864"/>

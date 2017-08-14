@@ -3,6 +3,8 @@
     package="com.zacharee1.sswidgets">
 
     <uses-permission android:name="android.permission.MEDIA_CONTENT_CONTROL" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" />
 
     <application
         android:allowBackup="true"
@@ -24,17 +26,38 @@
 
         <service
             android:name=".services.MusicService"
-            android:exported="false">
+            android:exported="false" />
 
-        </service>
-
-        <receiver android:name=".widgets.Music">
+        <receiver
+            android:name=".widgets.Music"
+            android:label="@string/music_label">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
-            <meta-data android:name="android.appwidget.provider"
+
+            <meta-data
+                android:name="android.appwidget.provider"
                 android:resource="@xml/appwidget_info_music" />
         </receiver>
+        <receiver
+            android:name=".widgets.Contacts"
+            android:label="@string/contacts_label">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/contacts_info" />
+        </receiver>
+
+        <service
+            android:name=".services.ContactService"
+            android:exported="false" />
+
+        <activity android:name=".activities.ContactsConfigureActivity"></activity>
+
+        <activity android:name=".activities.AddContactActivity"></activity>
     </application>
 
 </manifest>

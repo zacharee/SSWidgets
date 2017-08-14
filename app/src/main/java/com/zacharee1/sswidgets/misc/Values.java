@@ -2,15 +2,20 @@ package com.zacharee1.sswidgets.misc;
 
 public class Values
 {
-    public static String MUSIC_INTENT_ACTION = "music_action";
-    public static int MUSIC_REQUEST_CODE = 1001;
-
-    public static String ACTION_MUSIC_BACK = "com.zacharee1.intent.action.MUSIC_BACK";
-    public static String ACTION_MUSIC_PLAYPAUSE = "com.zacharee1.intent.action.MUSIC_PLAYPAUSE";
-    public static String ACTION_MUSIC_NEXT = "com.zacharee1.intent.action.MUSIC_NEXT";
+    public static final String MUSIC_INTENT_ACTION = "music_action";
+    public static final String CONTACT_INTENT_ACTION = "contact_action";
 
     public static final int MUSIC_BACK = -1;
     public static final int MUSIC_PLAYPAUSE = 0;
     public static final int MUSIC_NEXT = 1;
     public static final int MUSIC_OPEN = 2;
+
+    public static final int CONTACT_1 = 3;
+    public static final int CONTACT_2 = 4;
+    public static final int CONTACT_3 = 5;
+    public static final int CONTACT_4 = 6;
+    public static final int CONTACT_5 = 7;
+    public static final int CONTACT_6 = 8;
+    public static final int CONTACT_7 = 9;
+    public static final int CONTACT_8 = 10;
 }

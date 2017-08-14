@@ -1,0 +1,64 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="1040px"
+    android:layout_height="160px"
+    android:orientation="horizontal"
+    android:gravity="center"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/contact_1"
+        android:layout_width="120px"
+        android:layout_height="120px"
+        android:layout_weight="1"
+        app:srcCompat="@drawable/ic_account_circle_white_24dp" />
+
+    <ImageView
+        android:id="@+id/contact_2"
+        android:layout_width="120px"
+        android:layout_height="120px"
+        android:layout_weight="1"
+        app:srcCompat="@drawable/ic_account_circle_white_24dp" />
+
+    <ImageView
+        android:id="@+id/contact_3"
+        android:layout_width="120px"
+        android:layout_height="120px"
+        android:layout_weight="1"
+        app:srcCompat="@drawable/ic_account_circle_white_24dp" />
+
+    <ImageView
+        android:id="@+id/contact_4"
+        android:layout_width="120px"
+        android:layout_height="120px"
+        android:layout_weight="1"
+        app:srcCompat="@drawable/ic_account_circle_white_24dp" />
+
+    <ImageView
+        android:id="@+id/contact_5"
+        android:layout_width="120px"
+        android:layout_height="120px"
+        android:layout_weight="1"
+        app:srcCompat="@drawable/ic_account_circle_white_24dp" />
+
+    <ImageView
+        android:id="@+id/contact_6"
+        android:layout_width="120px"
+        android:layout_height="120px"
+        android:layout_weight="1"
+        app:srcCompat="@drawable/ic_account_circle_white_24dp" />
+
+    <ImageView
+        android:id="@+id/contact_7"
+        android:layout_width="120px"
+        android:layout_height="120px"
+        android:layout_weight="1"
+        app:srcCompat="@drawable/ic_account_circle_white_24dp" />
+
+    <ImageView
+        android:id="@+id/contact_8"
+        android:layout_width="120px"
+        android:layout_height="120px"
+        android:layout_weight="1"
+        app:srcCompat="@drawable/ic_account_circle_white_24dp" />
+
+</LinearLayout>
