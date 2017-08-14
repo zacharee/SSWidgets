@@ -34,7 +34,13 @@
             android:id="@+id/settings_write_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Grant Secure Settings Permission" />
+            android:text="Grant WRITE_SECURE_SETTINGS Permission" />
+
+        <Button
+            android:id="@+id/battery_stats_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Grant BATTERY_STATS Permission" />
     </LinearLayout>
 
     <LinearLayout

@@ -135,6 +135,7 @@ public class RequestPermissionsActivity extends AppIntro2
             mView = inflater.inflate(R.layout.slide_permissions, container, false);
             mView.findViewById(R.id.request_perms_button).setOnClickListener(this);
             mView.findViewById(R.id.settings_write_button).setOnClickListener(this);
+            mView.findViewById(R.id.battery_stats_button).setOnClickListener(this);
             mView.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark, null));
 
             TextView title = mView.findViewById(R.id.title);
@@ -143,7 +144,8 @@ public class RequestPermissionsActivity extends AppIntro2
             TextView desc = mView.findViewById(R.id.description);
             desc.setText("Location Access is needed to report Cellular Signal. \n" +
                     "Contacts Access is needed to use the Contacts widget. \n" +
-                    "Secure Settings Access to store information.");
+                    "BATTERY_STATS is needed to read battery information. \n" +
+                    "WRITE_SECURE_SETTINGS is needed to store information.");
             return mView;
         }
 
@@ -162,6 +164,14 @@ public class RequestPermissionsActivity extends AppIntro2
                     } else {
                         Toast.makeText(getContext(), "Could not acquire root access. Please use ADB", Toast.LENGTH_LONG).show();
                     }
+                    break;
+                case R.id.battery_stats_button:
+                    if (SuUtils.testSudo()) {
+                        SuUtils.sudo("pm grant " + getContext().getPackageName() + " " + Manifest.permission.BATTERY_STATS);
+                    } else {
+                        Toast.makeText(getContext(), "Could not acquire root access. Please use ADB", Toast.LENGTH_LONG).show();
+                    }
+                    break;
             }
         }
     }

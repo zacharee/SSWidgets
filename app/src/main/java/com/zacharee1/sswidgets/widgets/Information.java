@@ -326,6 +326,8 @@ public class Information extends AppWidgetProvider
         boolean isCharging = bm.isCharging();
         CharSequence sequence = batLevel + "%";
 
+
+
         mView.setCharSequence(R.id.battery_percent, "setText", sequence);
 
         int resId;
