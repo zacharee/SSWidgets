@@ -92,9 +92,6 @@ public class Information extends AppWidgetProvider
         mIds = appWidgetIds;
 
         display = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
-//        if (context.checkCallingOrSelfPermission(Manifest.permission.ACCESS_NOTIFICATION_POLICY) != PackageManager.PERMISSION_GRANTED) {
-//            context.startActivity(new Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS));
-//        }
 
         registerObserversAndReceivers();
         cellLevels();
@@ -315,7 +312,6 @@ public class Information extends AppWidgetProvider
                             | PhoneStateListener.LISTEN_CELL_LOCATION       //or tower/cell changes
             );
         } catch (SecurityException e) {
-            requestCoarsePerm();
         }
 
         mContext.getApplicationContext().registerReceiver(actionChange, changeFilter);
@@ -467,20 +463,9 @@ public class Information extends AppWidgetProvider
             }
             mView.setInt(R.id.signal_level, "setColorFilter", Settings.Global.getInt(mContext.getContentResolver(), "cell_signal_color", Color.WHITE));
         } catch (SecurityException e) {
-            requestCoarsePerm();
         }
 
         mManager.updateAppWidget(mIds, mView);
-    }
-
-    /**
-     * If {@link Manifest.permission#ACCESS_COARSE_LOCATION} isn't granted, request it
-     */
-    private void requestCoarsePerm() {
-        Intent reqPerms = new Intent(mContext, RequestPermissionsActivity.class);
-        reqPerms.putExtra("permission", Manifest.permission.ACCESS_COARSE_LOCATION);
-
-        mContext.startActivity(reqPerms);
     }
 
     /**
@@ -573,7 +558,7 @@ public class Information extends AppWidgetProvider
                         continue;
                     }
 
-                    if (importance > 1) {
+                    if (importance > -2) {
                         notifNames.add(notif);
                         notifGroups.add(notif.getGroup());
                     }

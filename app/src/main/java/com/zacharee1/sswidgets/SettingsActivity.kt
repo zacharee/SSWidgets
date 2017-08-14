@@ -21,6 +21,8 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ListView
 import com.jaredrummler.android.colorpicker.ColorPreference
+import com.zacharee1.sswidgets.activities.RequestPermissionsActivity
+import com.zacharee1.sswidgets.misc.Util
 
 /**
  * A [PreferenceActivity] that presents a set of application settings. On
@@ -37,6 +39,8 @@ class SettingsActivity : AppCompatPreferenceActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupActionBar()
+
+        if (!Util.hasAllPerms(this)) startActivity(Intent(this, RequestPermissionsActivity::class.java))
     }
 
     /**

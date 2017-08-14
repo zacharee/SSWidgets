@@ -3,6 +3,7 @@ package com.zacharee1.sswidgets.misc;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -205,4 +206,18 @@ public class Util
         return contacts;
     }
 
+    public static boolean hasAllPerms(Context context) {
+        try {
+            PackageInfo packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), PackageManager.GET_PERMISSIONS);
+            String[] perms = packageInfo.requestedPermissions;
+
+            for (String perm : perms) {
+                if (context.checkCallingOrSelfPermission(perm) != PackageManager.PERMISSION_GRANTED) return false;
+            }
+
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }
