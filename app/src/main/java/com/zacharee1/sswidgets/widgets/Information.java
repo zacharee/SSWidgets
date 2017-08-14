@@ -15,15 +15,19 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.Icon;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.BatteryManager;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Looper;
 import android.os.PowerManager;
 import android.provider.Settings;
+import android.service.notification.NotificationListenerService;
+import android.service.notification.StatusBarNotification;
 import android.support.v4.content.LocalBroadcastManager;
 import android.telephony.CellInfo;
 import android.telephony.CellInfoCdma;
@@ -47,9 +51,12 @@ import android.widget.TextView;
 import com.zacharee1.sswidgets.R;
 import com.zacharee1.sswidgets.activities.RequestPermissionsActivity;
 import com.zacharee1.sswidgets.misc.Contact;
+import com.zacharee1.sswidgets.misc.Util;
 import com.zacharee1.sswidgets.misc.Values;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static android.content.Context.BATTERY_SERVICE;
 import static android.content.Context.CONNECTIVITY_SERVICE;
@@ -67,6 +74,14 @@ public class Information extends AppWidgetProvider
     private Context mContext;
     private AppWidgetManager mManager;
     private int[] mIds;
+    private ArrayList<Integer> mNotifIds = new ArrayList<Integer>() {{
+        add(R.id.notif_1);
+        add(R.id.notif_2);
+        add(R.id.notif_3);
+        add(R.id.notif_4);
+        add(R.id.notif_5);
+        add(R.id.notif_6);
+    }};
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds)
@@ -126,21 +141,19 @@ public class Information extends AppWidgetProvider
             @Override
             public void onChange(boolean selfChange, final Uri uri)
             {
-//                Uri notifs = Settings.Global.getUriFor("notification_icon_color");
+                Uri notifs = Settings.Global.getUriFor("notification_icon_color");
                 Uri wifi = Settings.Global.getUriFor("wifi_signal_color");
                 Uri mobile = Settings.Global.getUriFor("cell_signal_color");
                 Uri battery = Settings.Global.getUriFor("battery_color");
                 Uri clock = Settings.Global.getUriFor("clock_color");
                 Uri airplane = Settings.Global.getUriFor("airplane_icon_color");
 
-//                if (uri.equals(notifs)) {
-//                    LinearLayout layout = mView.findViewById(R.id.notification_layout);
-//                    for (int i = 0; i < layout.getChildCount(); i++) {
-//                        ImageView view = (ImageView) layout.getChildAt(i);
-//                        view.setColorFilter(Settings.Global.getInt(mContext.getContentResolver(), "notification_icon_color", Color.WHITE), PorterDuff.Mode.SRC_IN);
-//                    }
-//                    layout.color
-//                }
+                if (uri.equals(notifs)) {
+                    for (int i : mNotifIds) {
+                        mView.setInt(i, "setColorFilter", Settings.Global.getInt(mContext.getContentResolver(), "notification_icon_color", Color.WHITE));
+                    }
+                    mManager.updateAppWidget(mIds, mView);
+                }
 
                 if (uri.equals(wifi)) {
                     mView.setInt(R.id.wifi_level, "setColorFilter", Settings.Global.getInt(mContext.getContentResolver(), "wifi_signal_color", Color.WHITE));
@@ -154,6 +167,7 @@ public class Information extends AppWidgetProvider
 
                 if (uri.equals(battery)) {
                     mView.setInt(R.id.battery_percent, "setTextColor", Settings.Global.getInt(mContext.getContentResolver(), "battery_color", Color.WHITE));
+                    mView.setInt(R.id.battery_percent_image, "setColorFilter", Settings.Global.getInt(mContext.getContentResolver(), "battery_color", Color.WHITE));
                     mManager.updateAppWidget(mIds, mView);
                 }
 
@@ -254,23 +268,21 @@ public class Information extends AppWidgetProvider
                         Log.e("MustardCorp Received", extra.toString());
                         ArrayList<Notification> notifications = new ArrayList<Notification>(extra);
 
-//                        mNotifsView.removeAllViews();
-//
-//                        for (int i = 0; i < (notifications.size() > 6 ? 6 : notifications.size()); i++) { //we don't want to cause layout problems, so set the max displayed icons to 6
-//                            Notification notification = notifications.get(i);
-//                            Drawable icon = notification.getSmallIcon().loadDrawable(mContext);
-//                            ImageView imageView = new ImageView(mContext);
-//
-//                            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//                            params.height = (int) Util.pxToDp(mContext, 24);
-//                            params.width = (int) Util.pxToDp(mContext, 24);
-//
-//                            imageView.setLayoutParams(params);
-//                            imageView.setImageDrawable(icon);
-//                            imageView.setImageTintList(ColorStateList.valueOf(Settings.Global.getInt(mContext.getContentResolver(), "notification_icon_color", Color.WHITE)));
-//
-//                            mNotifsView.addView(imageView);
-//                        }
+                        mView.setInt(R.id.notif_1, "setVisibility", View.GONE);
+                        mView.setInt(R.id.notif_2, "setVisibility", View.GONE);
+                        mView.setInt(R.id.notif_3, "setVisibility", View.GONE);
+                        mView.setInt(R.id.notif_4, "setVisibility", View.GONE);
+                        mView.setInt(R.id.notif_5, "setVisibility", View.GONE);
+                        mView.setInt(R.id.notif_6, "setVisibility", View.GONE);
+
+                        for (int i = 0; i < (notifications.size() > 6 ? 6 : notifications.size()); i++) { //we don't want to cause layout problems, so set the max displayed icons to 6
+                            Notification notification = notifications.get(i);
+                            Icon icon = notification.getSmallIcon();
+
+                            mView.setImageViewIcon(mNotifIds.get(i), icon);
+                            mView.setInt(mNotifIds.get(i), "setVisibility", View.VISIBLE);
+                            mView.setInt(mNotifIds.get(i), "setColorFilter", Settings.Global.getInt(mContext.getContentResolver(), "notification_icon_color", Color.WHITE));
+                        }
 
                         mManager.updateAppWidget(mIds, mView);
                     }
@@ -338,7 +350,8 @@ public class Information extends AppWidgetProvider
             resId = isCharging ? R.drawable.ic_battery_charging_20_black_24dp : R.drawable.ic_battery_alert_black_24dp;
         }
 
-        mView.setTextViewCompoundDrawables(R.id.battery_percent, R.drawable.blank, resId, R.drawable.blank, R.drawable.blank);
+        mView.setImageViewResource(R.id.battery_percent_image, resId);
+        mView.setInt(R.id.battery_percent_image, "setColorFilter", Settings.Global.getInt(mContext.getContentResolver(), "battery_color", Color.WHITE));
         mView.setInt(R.id.battery_percent, "setTextColor", Settings.Global.getInt(mContext.getContentResolver(), "battery_color", Color.WHITE));
 
         mManager.updateAppWidget(mIds, mView);
@@ -468,6 +481,114 @@ public class Information extends AppWidgetProvider
         reqPerms.putExtra("permission", Manifest.permission.ACCESS_COARSE_LOCATION);
 
         mContext.startActivity(reqPerms);
+    }
+
+    /**
+     * Listen for notification changes
+     */
+    public static class NotificationListener extends NotificationListenerService
+    {
+        private ArrayList<Notification> notifNames = new ArrayList<>();
+        private BroadcastReceiver mReceiver;
+
+        @Override
+        public void onListenerConnected()
+        {
+            reAddNotifs();
+            mReceiver = new BroadcastReceiver()
+            {
+                @Override
+                public void onReceive(Context context, Intent intent)
+                {
+                    reAddNotifs();
+                }
+            };
+            IntentFilter filter = new IntentFilter(Values.ACTION_INFORMATION_ADDED);
+
+            LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(mReceiver, filter);
+        }
+
+        @Override
+        public void onDestroy()
+        {
+            LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(mReceiver);
+            super.onDestroy();
+        }
+
+        @Override
+        public void onNotificationRankingUpdate(RankingMap rankingMap)
+        {
+            reAddNotifs();
+            super.onNotificationRankingUpdate(rankingMap);
+        }
+
+        @Override
+        public void onNotificationPosted(StatusBarNotification sbn)
+        {
+            reAddNotifs();
+            super.onNotificationPosted(sbn);
+        }
+
+        @Override
+        public void onNotificationRemoved(StatusBarNotification sbn)
+        {
+            reAddNotifs();
+            super.onNotificationRemoved(sbn);
+        }
+
+        private void reAddNotifs() {
+            StatusBarNotification[] notifs = getActiveNotifications();
+            notifNames = new ArrayList<>();
+            ArrayList<String> notifGroups = new ArrayList<>();
+
+            outerloop:
+            for (StatusBarNotification notification : notifs) {
+                Notification notif = notification.getNotification();
+                int importance = notif.priority;
+                Log.e("MustardCorp Importance", importance + "");
+
+                try
+                {
+//                    Class INotificationManager = Class.forName("android.app.INotificationManager");
+//                    Class INotificationManager$Stub = Class.forName("android.app.INotificationManager$Stub");
+//                    Method asInterface = INotificationManager$Stub.getMethod("asInterface", IBinder.class);
+//                    Class ServiceManager = Class.forName("android.os.ServiceManager");
+//                    Method getService = ServiceManager.getMethod("getService", String.class);
+//                    Method getImportance = INotificationManager.getMethod("getImportance", String.class, int.class);
+//
+//                    Object notifService = getService.invoke(null, Context.NOTIFICATION_SERVICE);
+//
+//                    Object manager = asInterface.invoke(null, notifService);
+//
+//                    Method getUid = StatusBarNotification.class.getMethod("getUid");
+//                    Object uid = getUid.invoke(notification);
+//
+//                    Integer imp = (Integer) getImportance.invoke(manager, notification.getPackageName(), uid);
+
+                    Log.e("MustardCorp", Arrays.toString(getCurrentRanking().getOrderedKeys()));
+
+                    Log.e("MustardCorp Group", notif.getGroup() + "GROUP");
+
+                    if (notif.getGroup() != null && notifGroups.contains(notif.getGroup())) {
+                        continue;
+                    }
+
+                    if (importance > 1) {
+                        notifNames.add(notif);
+                        notifGroups.add(notif.getGroup());
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            Intent intent = new Intent(Values.ACTION_NOTIFICATIONS_RECOMPILED);
+            intent.putParcelableArrayListExtra("notifications", notifNames);
+
+            Log.e("MustardCorp", "Sending BC");
+            LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
+        }
     }
 }
 
