@@ -8,7 +8,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.ContentObserver;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.MediaMetadata;
 import android.media.session.MediaController;
@@ -29,8 +32,10 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.RemoteViews;
+import android.widget.TextView;
 
 import com.zacharee1.sswidgets.R;
+import com.zacharee1.sswidgets.misc.Util;
 import com.zacharee1.sswidgets.misc.Values;
 import com.zacharee1.sswidgets.services.MusicService;
 
@@ -50,6 +55,7 @@ public class Music extends AppWidgetProvider
     private List<MediaController> controllers;
 
     private AppWidgetManager mManager;
+    private int[] mIds;
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
@@ -62,6 +68,7 @@ public class Music extends AppWidgetProvider
         audioManager = (AudioManager)mContext.getSystemService(Context.AUDIO_SERVICE);
         sessionManager = (MediaSessionManager) context.getSystemService(Context.MEDIA_SESSION_SERVICE);
         mManager = appWidgetManager;
+        mIds = appWidgetIds;
 
         mHandler = new Handler(Looper.getMainLooper());
 
@@ -76,10 +83,19 @@ public class Music extends AppWidgetProvider
     @Override
     public void onDeleted(Context context, int[] appWidgetIds)
     {
-        super.onDeleted(context, appWidgetIds);
+        try {
+            context.getContentResolver().unregisterContentObserver(stateObserver);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        context.getContentResolver().unregisterContentObserver(stateObserver);
-        context.unregisterReceiver(playingMusicReceiver);
+        try {
+            context.unregisterReceiver(playingMusicReceiver);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        super.onDeleted(context, appWidgetIds);
     }
 
     private void listenForColorChangeOrMusicChange() {
@@ -175,15 +191,16 @@ public class Music extends AppWidgetProvider
         mView.setInt(R.id.skip_back, "setColorFilter", backColor);
         mView.setInt(R.id.play_pause, "setColorFilter", playpauseColor);
         mView.setInt(R.id.skip_forward, "setColorFilter", forwardColor);
-        mView.setInt(R.id.song_info, "setColorFilter", songColor);
+        mView.setInt(R.id.song_info, "setTextColor", songColor);
 
         mView.setImageViewResource(R.id.skip_back, R.drawable.ic_skip_previous_black_24dp);
         mView.setImageViewResource(R.id.play_pause, isMusicPlaying() ? R.drawable.ic_pause_black_24dp : R.drawable.ic_play_arrow_black_24dp);
         mView.setImageViewResource(R.id.skip_forward, R.drawable.ic_skip_next_black_24dp);
 
-        if (controllers != null) {
+        if (controllers != null && controllers.size() > 0) {
             String title = controllers.get(0).getMetadata().getString(MediaMetadata.METADATA_KEY_TITLE);
             String artist = controllers.get(0).getMetadata().getString(MediaMetadata.METADATA_KEY_ARTIST);
+            String packageName = controllers.get(0).getPackageName();
 
             StringBuilder info = new StringBuilder();
 
@@ -198,6 +215,23 @@ public class Music extends AppWidgetProvider
             }
 
             mView.setTextViewText(R.id.song_info, info.toString());
+            try {
+                mView.setImageViewBitmap(R.id.music_icon, Util.drawableToBitmap(mContext.getPackageManager().getApplicationIcon(packageName)));
+
+                Intent openMusicIntent = new Intent(mContext, MusicService.class);
+                openMusicIntent.putExtra(Values.MUSIC_INTENT_ACTION, Values.MUSIC_OPEN);
+                openMusicIntent.putExtra("packageName", packageName);
+                openMusicIntent.setAction(Values.MUSIC_INTENT_ACTION);
+
+                PendingIntent open = PendingIntent.getService(mContext, Values.MUSIC_OPEN, openMusicIntent, 0);
+
+                mView.setOnClickPendingIntent(R.id.music_icon, open);
+            } catch (Exception e) {
+                e.printStackTrace();
+                mView.setInt(R.id.music_icon, "setColorFilter", Color.WHITE);
+            }
+        } else {
+            mView.setInt(R.id.music_icon, "setColorFilter", Color.WHITE);
         }
 
         Intent backIntent = new Intent(mContext, MusicService.class);
@@ -220,6 +254,8 @@ public class Music extends AppWidgetProvider
         mView.setOnClickPendingIntent(R.id.skip_back, back);
         mView.setOnClickPendingIntent(R.id.play_pause, playpause);
         mView.setOnClickPendingIntent(R.id.skip_forward, next);
+
+        mManager.updateAppWidget(mIds, mView);
     }
 
     private boolean isMusicPlaying()

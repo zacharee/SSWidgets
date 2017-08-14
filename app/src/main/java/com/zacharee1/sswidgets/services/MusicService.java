@@ -7,6 +7,7 @@ import android.media.AudioManager;
 import android.os.SystemClock;
 import android.view.KeyEvent;
 
+import com.zacharee1.sswidgets.misc.Util;
 import com.zacharee1.sswidgets.misc.Values;
 
 public class MusicService extends IntentService
@@ -16,8 +17,6 @@ public class MusicService extends IntentService
     public MusicService()
     {
         super("MusicService");
-
-        audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
     }
 
     @Override
@@ -25,6 +24,8 @@ public class MusicService extends IntentService
     {
         if (intent != null)
         {
+            audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+
             final String action = intent.getAction();
 
             if (action.equals(Values.MUSIC_INTENT_ACTION)) {
@@ -63,6 +64,10 @@ public class MusicService extends IntentService
 
                         upEvent = new KeyEvent(eventtime, eventtime, KeyEvent.ACTION_UP, KeyEvent.KEYCODE_MEDIA_NEXT, 0);
                         audioManager.dispatchMediaKeyEvent(upEvent);
+
+                        break;
+                    case Values.MUSIC_OPEN:
+                        Util.openApp(this, intent.getStringExtra("packageName"));
 
                         break;
                 }
