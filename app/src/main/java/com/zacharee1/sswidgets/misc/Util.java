@@ -206,18 +206,23 @@ public class Util
         return contacts;
     }
 
-    public static boolean hasAllPerms(Context context) {
+    /**
+     * Check if all permissions are granted
+     * @param context from caller
+     * @return null if has all permissions, missing permission otherwise
+     */
+    public static String hasAllPerms(Context context) {
         try {
             PackageInfo packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), PackageManager.GET_PERMISSIONS);
             String[] perms = packageInfo.requestedPermissions;
 
             for (String perm : perms) {
-                if (context.checkCallingOrSelfPermission(perm) != PackageManager.PERMISSION_GRANTED) return false;
+                if (context.checkCallingOrSelfPermission(perm) != PackageManager.PERMISSION_GRANTED) return perm;
             }
 
-            return true;
+            return null;
         } catch (Exception e) {
-            return false;
+            return e.getMessage();
         }
     }
 }

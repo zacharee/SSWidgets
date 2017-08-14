@@ -40,7 +40,7 @@ class SettingsActivity : AppCompatPreferenceActivity() {
         super.onCreate(savedInstanceState)
         setupActionBar()
 
-        if (!Util.hasAllPerms(this)) startActivity(Intent(this, RequestPermissionsActivity::class.java))
+        if (Util.hasAllPerms(this) != null) startActivity(Intent(this, RequestPermissionsActivity::class.java))
     }
 
     /**
