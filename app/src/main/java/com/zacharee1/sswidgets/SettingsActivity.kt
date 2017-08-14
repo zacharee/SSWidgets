@@ -4,6 +4,7 @@ import android.annotation.TargetApi
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
+import android.graphics.Color
 import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Build
@@ -14,8 +15,12 @@ import android.preference.PreferenceActivity
 import android.preference.PreferenceFragment
 import android.preference.PreferenceManager
 import android.preference.RingtonePreference
+import android.provider.Settings
 import android.text.TextUtils
 import android.view.MenuItem
+import android.view.View
+import android.widget.ListView
+import com.jaredrummler.android.colorpicker.ColorPreference
 
 /**
  * A [PreferenceActivity] that presents a set of application settings. On
@@ -62,65 +67,43 @@ class SettingsActivity : AppCompatPreferenceActivity() {
      */
     override fun isValidFragment(fragmentName: String): Boolean {
         return PreferenceFragment::class.java.name == fragmentName
-                || GeneralPreferenceFragment::class.java.name == fragmentName
-                || DataSyncPreferenceFragment::class.java.name == fragmentName
-                || NotificationPreferenceFragment::class.java.name == fragmentName
+                || ColorPreferenceFragment::class.java.name == fragmentName
     }
 
-    /**
-     * This fragment shows general preferences only. It is used when the
-     * activity is showing a two-pane settings UI.
-     */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    class GeneralPreferenceFragment : PreferenceFragment() {
+    class ColorPreferenceFragment : PreferenceFragment() {
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
-            addPreferencesFromResource(R.xml.pref_general)
+            addPreferencesFromResource(R.xml.pref_colors)
             setHasOptionsMenu(true)
-        }
 
-        override fun onOptionsItemSelected(item: MenuItem): Boolean {
-            val id = item.itemId
-            if (id == android.R.id.home) {
-                startActivity(Intent(activity, SettingsActivity::class.java))
-                return true
+            for (i in 0..preferenceScreen.rootAdapter.count - 1) {
+                val o = preferenceScreen.rootAdapter.getItem(i)
+
+                if (o is ColorPreference) {
+                    val preference = o
+
+                    val colorVal = Settings.Global.getInt(context.contentResolver, preference.key, Color.WHITE)
+                    preference.saveValue(colorVal)
+
+                    preference.setOnPreferenceChangeListener{ _, obj ->
+                        Settings.Global.putInt(context.contentResolver, preference.key, Integer.valueOf(obj.toString())!!)
+                        true
+                    }
+                }
             }
-            return super.onOptionsItemSelected(item)
-        }
-    }
-
-    /**
-     * This fragment shows notification preferences only. It is used when the
-     * activity is showing a two-pane settings UI.
-     */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    class NotificationPreferenceFragment : PreferenceFragment() {
-        override fun onCreate(savedInstanceState: Bundle?) {
-            super.onCreate(savedInstanceState)
-            addPreferencesFromResource(R.xml.pref_notification)
-            setHasOptionsMenu(true)
         }
 
-        override fun onOptionsItemSelected(item: MenuItem): Boolean {
-            val id = item.itemId
-            if (id == android.R.id.home) {
-                startActivity(Intent(activity, SettingsActivity::class.java))
-                return true
+        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+            try {
+                val getListView = PreferenceFragment::class.java.getMethod("getListView")
+                val listView = getListView.invoke(this) as ListView
+                listView.divider = resources.getDrawable(R.drawable.horizontal_divider, null)
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
-            return super.onOptionsItemSelected(item)
-        }
-    }
 
-    /**
-     * This fragment shows data and sync preferences only. It is used when the
-     * activity is showing a two-pane settings UI.
-     */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    class DataSyncPreferenceFragment : PreferenceFragment() {
-        override fun onCreate(savedInstanceState: Bundle?) {
-            super.onCreate(savedInstanceState)
-            addPreferencesFromResource(R.xml.pref_data_sync)
-            setHasOptionsMenu(true)
+            super.onViewCreated(view, savedInstanceState)
         }
 
         override fun onOptionsItemSelected(item: MenuItem): Boolean {

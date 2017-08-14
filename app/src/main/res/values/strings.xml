@@ -1,86 +1,52 @@
 <resources>
     <string name="app_name">SSWidgets</string>
 
-    <!-- Strings related to Settings -->
+    <string name="title_activity_options">Second Screen</string>
 
-    <!-- Example General settings -->
-    <string name="pref_header_general">General</string>
-
-    <string name="pref_title_social_recommendations">Enable social recommendations</string>
-    <string name="pref_description_social_recommendations">Recommendations for people to contact
-        based on your message history
-    </string>
-
-    <string name="pref_title_display_name">Display name</string>
-    <string name="pref_default_display_name">John Smith</string>
-
-    <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
-    <string-array name="pref_example_list_titles">
-        <item>Always</item>
-        <item>When possible</item>
-        <item>Never</item>
-    </string-array>
-    <string-array name="pref_example_list_values">
-        <item>1</item>
-        <item>0</item>
-        <item>-1</item>
-    </string-array>
-
-    <!-- Example settings for Data & Sync -->
-    <string name="pref_header_data_sync">Data &amp; sync</string>
-
-    <string name="pref_title_sync_frequency">Sync frequency</string>
-    <string-array name="pref_sync_frequency_titles">
-        <item>15 minutes</item>
-        <item>30 minutes</item>
-        <item>1 hour</item>
-        <item>3 hours</item>
-        <item>6 hours</item>
-        <item>Never</item>
-    </string-array>
-    <string-array name="pref_sync_frequency_values">
-        <item>15</item>
-        <item>30</item>
-        <item>60</item>
-        <item>180</item>
-        <item>360</item>
-        <item>-1</item>
-    </string-array>
-
-    <string-array name="list_preference_entries">
-        <item>Entry 1</item>
-        <item>Entry 2</item>
-        <item>Entry 3</item>
-    </string-array>
-
-    <string-array name="list_preference_entry_values">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>
-
-    <string-array name="multi_select_list_preference_default_value" />
-
-    <string name="pref_title_system_sync_settings">System sync settings</string>
-
-    <!-- Example settings for Notifications -->
-    <string name="pref_header_notifications">Notifications</string>
-
-    <string name="pref_title_new_message_notifications">New message notifications</string>
-
-    <string name="pref_title_ringtone">Ringtone</string>
-    <string name="pref_ringtone_silent">Silent</string>
-
-    <string name="pref_title_vibrate">Vibrate</string>
-
-    <string name="play_something">Play Something!</string>
-    <string name="appwidget_text">EXAMPLE</string>
-    <string name="add_widget">Add widget</string>
+    <string name="sound_toggle">Sound Toggle</string>
+    <string name="wifi_toggle">WiFi Toggle</string>
+    <string name="flash_toggle">Flashlight Toggle</string>
+    <string name="bt_toggle">Bluetooth Toggle</string>
+    <string name="airplane_toggle">Airplane Mode Toggle</string>
+    <string name="music_back">Skip Back</string>
+    <string name="music_pp">Play/Pause</string>
+    <string name="music_forward">Skip Forward</string>
+    <string name="music_text">Song Title</string>
+    <string name="notifications_color">Notification Icons</string>
+    <string name="wifi_color">WiFi Icon</string>
+    <string name="mobile_color">Mobile Icon</string>
+    <string name="airplane_color">Airplane Mode Icon</string>
+    <string name="battery_color">Battery Info</string>
+    <string name="clock_color">Clock</string>
+    <string name="ss_background">Background</string>
 
     <string name="app_key">App_Key</string>
     <string name="contact_key">Contact Key</string>
     <string name="def_key">Def_Key</string>
 
+    <string name="color">Color</string>
+    <string name="page_order">Page Order</string>
+    <string name="toggle_order">Toggle Order</string>
+    <string name="options">Options</string>
+    <string name="unknown">Unknown</string>
+
+    <string name="color_desc">Color all the things!</string>
+    <string name="page_order_desc">Set the order of the pages.</string>
+    <string name="toggle_order_desc">Set the order of the QuickToggles.</string>
+    <string name="options_desc">Miscellaneous options.</string>
+
+    <string name="general">General</string>
+    <string name="information">Information Screen</string>
+    <string name="toggles">Toggles Screen</string>
+    <string name="music">Music Screen</string>
+    <string name="recents">Recents Screen</string>
+    <string name="contacts">Contacts Screen</string>
+    <string name="launcher">Launcher Screen</string>
+
+    <string name="play_something">Play Something!</string>
+
     <string name="contacts_label">Contacts</string>
     <string name="music_label">Music Player</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 </resources>

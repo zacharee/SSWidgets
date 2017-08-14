@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="1040px"
+    android:layout_height="160px"
+    android:gravity="center_vertical|center_horizontal"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:id="@+id/notification_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_margin="2dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/wifi_level"
+        android:layout_width="80px"
+        android:layout_height="80px"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:src="@drawable/ic_signal_wifi_4_bar_black_24dp"
+        android:tint="#fff" />
+
+    <ImageView
+        android:id="@+id/signal_level"
+        android:layout_width="80px"
+        android:layout_height="80px"
+        android:layout_margin="2dp"
+        android:src="@drawable/ic_signal_cellular_4_bar_black_24dp"
+        android:tint="#fff" />
+
+    <ImageView
+        android:id="@+id/airplane_mode"
+        android:visibility="gone"
+        android:layout_width="80px"
+        android:layout_height="80px"
+        android:layout_margin="2dp"
+        android:src="@drawable/ic_airplanemode_active_black_24dp"
+        android:tint="#fff"/>
+
+    <TextView
+        android:id="@+id/battery_percent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        android:drawableTint="#fff"
+        android:drawableTop="@drawable/ic_battery_full_black_24dp"
+        android:text="100%"
+        android:textColor="#fff" />
+
+    <TextClock
+        android:id="@+id/current_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|center_vertical"
+        android:layout_margin="2dp"
+        android:gravity="right"
+        android:textColor="#fff"
+        android:textSize="18sp" />
+</LinearLayout>

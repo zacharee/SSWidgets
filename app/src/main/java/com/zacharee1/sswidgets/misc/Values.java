@@ -4,6 +4,8 @@ public class Values
 {
     public static final String MUSIC_INTENT_ACTION = "music_action";
     public static final String CONTACT_INTENT_ACTION = "contact_action";
+    public static final String ACTION_INFORMATION_ADDED = "xyz.mustardcorp.secondscreen.action.INFO_ADDED";
+    public static final String ACTION_NOTIFICATIONS_RECOMPILED = "xyz.mustardcorp.secondscreen.action.NOTIFS_REDONE";
 
     public static final int MUSIC_BACK = -1;
     public static final int MUSIC_PLAYPAUSE = 0;
