@@ -43,10 +43,8 @@ public class RequestPermissionsActivity extends AppIntro2
                 break;
         }
 
-        addSlide(AppIntro2Fragment.newInstance("Welcome!",
-                "This is a collection of custom widgets for the LG V20 second screen. " +
-                "They work on the AOSP implementation and Stock. " +
-                "No root required.",
+        addSlide(AppIntro2Fragment.newInstance(getResources().getString(R.string.welcome),
+                getResources().getString(R.string.app_desc),
                 resId,
                 getResources().getColor(R.color.colorPrimaryDark, null)));
         addSlide(NotifSlide.newInstance());
@@ -63,7 +61,7 @@ public class RequestPermissionsActivity extends AppIntro2
         if (perm == null) {
             finish();
         } else {
-            Toast.makeText(this, "Hmm. Something wasn't granted.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, String.format(getResources().getString(R.string.perm_error), perm), Toast.LENGTH_SHORT).show();
             Log.e("MustardCorp Permission", perm);
             backButton.setVisibility(View.VISIBLE);
         }
@@ -100,10 +98,10 @@ public class RequestPermissionsActivity extends AppIntro2
             mView.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark, null));
 
             TextView title = mView.findViewById(R.id.title);
-            title.setText("Grant Notification Access");
+            title.setText(getResources().getString(R.string.grant_notification_access_title));
 
             TextView desc = mView.findViewById(R.id.description);
-            desc.setText("Notification Access is needed for the Information View, to show notification icons.");
+            desc.setText(getResources().getString(R.string.grant_notification_access_desc));
             return mView;
         }
 
@@ -136,13 +134,10 @@ public class RequestPermissionsActivity extends AppIntro2
             mView.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark, null));
 
             TextView title = mView.findViewById(R.id.title);
-            title.setText("Grant Permissions");
+            title.setText(getResources().getString(R.string.grant_permissions_title));
 
             TextView desc = mView.findViewById(R.id.description);
-            desc.setText("Location Access is needed to report Cellular Signal. \n" +
-                    "Contacts Access is needed to use the Contacts widget. \n" +
-                    "BATTERY_STATS is needed to read battery information. \n" +
-                    "WRITE_SECURE_SETTINGS is needed to store information.");
+            desc.setText(getResources().getString(R.string.grant_permissions_desc));
             return mView;
         }
 
@@ -159,14 +154,14 @@ public class RequestPermissionsActivity extends AppIntro2
                     if (SuUtils.testSudo()) {
                         SuUtils.sudo("pm grant " + getContext().getPackageName() + " " + Manifest.permission.WRITE_SECURE_SETTINGS);
                     } else {
-                        Toast.makeText(getContext(), "Could not acquire root access. Please use ADB", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), getResources().getString(R.string.no_root), Toast.LENGTH_LONG).show();
                     }
                     break;
                 case R.id.battery_stats_button:
                     if (SuUtils.testSudo()) {
                         SuUtils.sudo("pm grant " + getContext().getPackageName() + " " + Manifest.permission.BATTERY_STATS);
                     } else {
-                        Toast.makeText(getContext(), "Could not acquire root access. Please use ADB", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), getResources().getString(R.string.no_root), Toast.LENGTH_LONG).show();
                     }
                     break;
             }

@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">SSWidgets</string>
+    <string name="app_desc">This is a collection of custom widgets for the LG V20 second screen. They work on the AOSP implementation and Stock. No root required.</string>
 
     <string name="title_activity_options">Second Screen</string>
 
@@ -43,4 +44,15 @@
     <string name="launcher">Launcher Screen</string>
 
     <string name="contacts_label">Contacts</string>
+
+    <string name="welcome">Welcome!</string>
+    <string name="perm_error">Hmm. Something wasn\'t granted. (%s)</string>
+
+    <string name="grant_notification_access_title">Grant Notification Access</string>
+    <string name="grant_notification_access_desc">Notification Access is needed for the Information View, to show notification icons.</string>
+
+    <string name="grant_permissions_title">Grant Permissions</string>
+    <string name="grant_permissions_desc">Location Access is needed to report Cellular Signal.\nContacts Access is needed to use the Contacts widget.\nBATTERY_STATS is needed to read battery information.\nWRITE_SECURE_SETTINGS is needed to store information.</string>
+
+    <string name="no_root">Could not acquire root access. Please use ADB</string>
 </resources>
