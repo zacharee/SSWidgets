@@ -38,15 +38,9 @@
     <string name="general">General</string>
     <string name="information">Information Screen</string>
     <string name="toggles">Toggles Screen</string>
-    <string name="music">Music Screen</string>
     <string name="recents">Recents Screen</string>
     <string name="contacts">Contacts Screen</string>
     <string name="launcher">Launcher Screen</string>
 
-    <string name="play_something">Play Something!</string>
-
     <string name="contacts_label">Contacts</string>
-    <string name="music_label">Music Player</string>
-    <string name="appwidget_text">EXAMPLE</string>
-    <string name="add_widget">Add widget</string>
 </resources>

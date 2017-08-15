@@ -28,22 +28,6 @@
             </intent-filter>
         </activity>
 
-        <service
-            android:name=".services.MusicService"
-            android:exported="false" />
-
-        <!--<receiver-->
-            <!--android:name=".widgets.Music"-->
-            <!--android:label="@string/music_label">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />-->
-            <!--</intent-filter>-->
-
-            <!--<meta-data-->
-                <!--android:name="android.appwidget.provider"-->
-                <!--android:resource="@xml/appwidget_info_music" />-->
-        <!--</receiver>-->
-
         <receiver
             android:name=".widgets.Contacts"
             android:label="@string/contacts_label">
