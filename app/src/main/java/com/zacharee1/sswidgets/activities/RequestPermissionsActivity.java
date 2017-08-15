@@ -32,16 +32,13 @@ public class RequestPermissionsActivity extends AppIntro2
         super.onCreate(savedInstanceState);
 
         int resId = -1;
-        int rand = (int)(Math.random() * 3);
+        int rand = (int)(Math.random() * 2);
 
         switch (rand) {
             case 0:
-                resId = R.drawable.v20_ss_music;
-                break;
-            case 1:
                 resId = R.drawable.v20_ss_info;
                 break;
-            case 2:
+            case 1:
                 resId = R.drawable.v20_ss_contacts;
                 break;
         }

@@ -30,25 +30,4 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory
-        android:title="@string/music">
-
-        <com.jaredrummler.android.colorpicker.ColorPreference
-            android:title="@string/music_back"
-            android:key="skip_prev_color" />
-
-        <com.jaredrummler.android.colorpicker.ColorPreference
-            android:title="@string/music_pp"
-            android:key="play_pause_color" />
-
-        <com.jaredrummler.android.colorpicker.ColorPreference
-            android:title="@string/music_forward"
-            android:key="skip_forward_color" />
-
-        <com.jaredrummler.android.colorpicker.ColorPreference
-            android:title="@string/music_text"
-            android:key="song_info_color" />
-
-    </PreferenceCategory>
-
 </PreferenceScreen>
