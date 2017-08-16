@@ -60,4 +60,5 @@
     <string name="no_root">Could not acquire root access. Please use ADB</string>
     <string name="set_api_weather">No weather API key specified. Please enter one in the app.</string>
     <string name="pick_image">Pick Image</string>
+    <string name="as_of">As of:</string>
 </resources>

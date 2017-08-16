@@ -29,6 +29,10 @@ import com.zacharee1.sswidgets.misc.Util;
 import com.zacharee1.sswidgets.misc.Values;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class Weather extends AppWidgetProvider implements WeatherClient.WeatherClientListener, WeatherClient.WeatherEventListener, WeatherClient.WeatherImageListener
 {
@@ -106,6 +110,11 @@ public class Weather extends AppWidgetProvider implements WeatherClient.WeatherC
         mView.setInt(R.id.current_location, "setVisibility", View.VISIBLE);
         mView.setInt(R.id.current_condition_desc, "setVisibility", View.VISIBLE);
         mView.setInt(R.id.current_condition_icon, "setVisibility", View.VISIBLE);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, h:mm a", Locale.US);
+        CharSequence currentDateandTime = sdf.format(new Date());
+
+        mView.setTextViewText(R.id.weather_time, currentDateandTime);
 
         mManager.updateAppWidget(mIds, mView);
     }
