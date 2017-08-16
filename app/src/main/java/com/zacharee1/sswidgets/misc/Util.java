@@ -19,13 +19,12 @@ import android.provider.ContactsContract;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.TreeMap;
-
-/**
- * Created by Zacha on 8/13/2017.
- */
 
 public class Util
 {

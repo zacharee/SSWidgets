@@ -44,6 +44,7 @@
     <string name="launcher">Launcher Screen</string>
 
     <string name="contacts_label">Contacts</string>
+    <string name="weather_label">Weather</string>
 
     <string name="welcome">Welcome!</string>
     <string name="perm_error">Hmm. Something wasn\'t granted. (%s)</string>
