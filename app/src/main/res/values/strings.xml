@@ -32,9 +32,7 @@
     <string name="unknown">Unknown</string>
 
     <string name="color_desc">Color all the things!</string>
-    <string name="page_order_desc">Set the order of the pages.</string>
-    <string name="toggle_order_desc">Set the order of the QuickToggles.</string>
-    <string name="options_desc">Miscellaneous options.</string>
+    <string name="weather_desc">Set up weather widget.</string>
 
     <string name="general">General</string>
     <string name="information">Information Screen</string>
@@ -45,6 +43,10 @@
 
     <string name="contacts_label">Contacts</string>
     <string name="weather_label">Weather</string>
+    <string name="image_label">Image</string>
+
+    <string name="open_weather_api_key">OpenWeather Map API Key</string>
+    <string name="get_key">Get an API Key</string>
 
     <string name="welcome">Welcome!</string>
     <string name="perm_error">Hmm. Something wasn\'t granted. (%s)</string>
@@ -56,4 +58,6 @@
     <string name="grant_permissions_desc">Location Access is needed to report Cellular Signal.\nContacts Access is needed to use the Contacts widget.\nBATTERY_STATS is needed to read battery information.\nWRITE_SECURE_SETTINGS is needed to store information.</string>
 
     <string name="no_root">Could not acquire root access. Please use ADB</string>
+    <string name="set_api_weather">No weather API key specified. Please enter one in the app.</string>
+    <string name="pick_image">Pick Image</string>
 </resources>

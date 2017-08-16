@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.zacharee1.sswidgets">
 
-    <!--<uses-permission android:name="android.permission.MEDIA_CONTENT_CONTROL" />-->
+    <!-- <uses-permission android:name="android.permission.MEDIA_CONTENT_CONTROL" /> -->
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -41,7 +41,6 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/contacts_info" />
         </receiver>
-
         <receiver
             android:name=".widgets.Weather"
             android:label="@string/weather_label">
@@ -54,6 +53,18 @@
                 android:resource="@xml/weather_info" />
         </receiver>
 
+        <receiver
+            android:name=".widgets.Image"
+            android:label="@string/image_label">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/image_info" />
+        </receiver>
+
         <service
             android:name=".services.ContactService"
             android:exported="false" />
@@ -62,7 +73,8 @@
         <activity android:name=".activities.AddContactActivity" />
         <activity android:name=".activities.RequestPermissionsActivity" />
 
-        <receiver android:name=".widgets.Information"
+        <receiver
+            android:name=".widgets.Information"
             android:label="@string/information">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -80,6 +92,8 @@
                 <action android:name="android.service.notification.NotificationListenerService" />
             </intent-filter>
         </service>
+
+        <activity android:name=".activities.ImagePickerActivity"></activity>
     </application>
 
 </manifest>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <EditTextPreference
+        android:title="@string/open_weather_api_key"
+        android:persistent="true"
+        android:key="weather_api_key" />
+
+    <Preference
+        android:title="@string/get_key"
+        android:key="get_api_key" />
+
+</PreferenceScreen>

@@ -5,10 +5,12 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.survivingwithandroid.weather.lib.WeatherClient;
@@ -24,6 +26,7 @@ import com.survivingwithandroid.weather.lib.request.WeatherRequest;
 import com.zacharee1.sswidgets.R;
 import com.zacharee1.sswidgets.misc.GPSTracker;
 import com.zacharee1.sswidgets.misc.Util;
+import com.zacharee1.sswidgets.misc.Values;
 
 import java.io.IOException;
 
@@ -40,11 +43,16 @@ public class Weather extends AppWidgetProvider implements WeatherClient.WeatherC
     {
         super.onUpdate(context, appWidgetManager, appWidgetIds);
 
+        WeatherConfig config = new WeatherConfig();
+        config.ApiKey = PreferenceManager.getDefaultSharedPreferences(context).getString(Values.WEATHER_API_KEY, null);
+
+        if (config.ApiKey == null || config.ApiKey.isEmpty()) {
+            Toast.makeText(context, context.getResources().getString(R.string.set_api_weather), Toast.LENGTH_LONG).show();
+            return;
+        }
+
         mView = new RemoteViews(context.getPackageName(), R.layout.layout_weather);
         try {
-            WeatherConfig config = new WeatherConfig();
-            config.ApiKey = "89f180de688677d9c2650b8feb6585f9";
-
             mWeatherClient = new WeatherClient.ClientBuilder()
                     .attach(context)
                     .provider(new OpenweathermapProviderType())

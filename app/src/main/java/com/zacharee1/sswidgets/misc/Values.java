@@ -5,6 +5,11 @@ public class Values
     public static final String CONTACT_INTENT_ACTION = "contact_action";
     public static final String ACTION_INFORMATION_ADDED = "xyz.mustardcorp.secondscreen.action.INFO_ADDED";
     public static final String ACTION_NOTIFICATIONS_RECOMPILED = "xyz.mustardcorp.secondscreen.action.NOTIFS_REDONE";
+    public static final String ACTION_IMAGE_UPDATED = "image_updated";
+
+    public static final String EXTRA_IMAGE_URI = "image_uri";
+
+    public static final String WEATHER_API_KEY = "weather_api_key";
 
     public static final int CONTACT_1 = 3;
     public static final int CONTACT_2 = 4;
