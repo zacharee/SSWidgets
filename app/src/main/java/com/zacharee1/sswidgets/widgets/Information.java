@@ -83,6 +83,8 @@ public class Information extends AppWidgetProvider
         add(R.id.notif_6);
     }};
 
+    private static ArrayList<Notification> mNotifs;
+
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds)
     {
@@ -259,11 +261,11 @@ public class Information extends AppWidgetProvider
                 String action = intent.getAction() != null ? intent.getAction() : "";
 
                 if (action.equals(Values.ACTION_NOTIFICATIONS_RECOMPILED)) {
-                    ArrayList extra = intent.getExtras().getParcelableArrayList("notifications");
+//                    ArrayList extra = intent.getExtras().getParcelableArrayList("notifications");
                     Log.e("MustardCorp Received", "Might be null");
-                    if (extra != null) {
-                        Log.e("MustardCorp Received", extra.toString());
-                        ArrayList<Notification> notifications = new ArrayList<Notification>(extra);
+                    if (mNotifs != null) {
+                        Log.e("MustardCorp Received", mNotifs.toString());
+//                        ArrayList<Notification> notifications = new ArrayList<Notification>(extra);
 
                         mView.setInt(R.id.notif_1, "setVisibility", View.GONE);
                         mView.setInt(R.id.notif_2, "setVisibility", View.GONE);
@@ -272,8 +274,8 @@ public class Information extends AppWidgetProvider
                         mView.setInt(R.id.notif_5, "setVisibility", View.GONE);
                         mView.setInt(R.id.notif_6, "setVisibility", View.GONE);
 
-                        for (int i = 0; i < (notifications.size() > 6 ? 6 : notifications.size()); i++) { //we don't want to cause layout problems, so set the max displayed icons to 6
-                            Notification notification = notifications.get(i);
+                        for (int i = 0; i < (mNotifs.size() > 6 ? 6 : mNotifs.size()); i++) { //we don't want to cause layout problems, so set the max displayed icons to 6
+                            Notification notification = mNotifs.get(i);
                             Icon icon = notification.getSmallIcon();
 
                             mView.setImageViewIcon(mNotifIds.get(i), icon);
@@ -570,8 +572,10 @@ public class Information extends AppWidgetProvider
                 }
             }
 
+            mNotifs = notifNames;
+
             Intent intent = new Intent(Values.ACTION_NOTIFICATIONS_RECOMPILED);
-            intent.putParcelableArrayListExtra("notifications", notifNames);
+//            intent.putParcelableArrayListExtra("notifications", notifNames);
 
             Log.e("MustardCorp", "Sending BC");
             LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
