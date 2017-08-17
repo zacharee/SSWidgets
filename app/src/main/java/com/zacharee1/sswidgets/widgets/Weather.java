@@ -10,8 +10,12 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.Icon;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
@@ -39,7 +43,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.Executor;
 
-public class Weather extends AppWidgetProvider implements WeatherListener
+public class Weather extends AppWidgetProvider implements WeatherListener, LocationListener
 {
     private RemoteViews mView;
     private Context mContext;
@@ -62,12 +66,41 @@ public class Weather extends AppWidgetProvider implements WeatherListener
 
         queryWeatherInfo();
 
+        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        locationManager.requestLocationUpdates("SignBoard Weather", 300000, 1610, this);
+
         appWidgetManager.updateAppWidget(appWidgetIds, mView);
     }
 
     private void queryWeatherInfo() {
         GPSTracker tracker = new GPSTracker(mContext);
+        Log.e("SignBoard Weather", "Location: " + tracker.getLatitude() + " " + tracker.getLongitude());
         mConnection.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, new WeatherConnectionInfo(tracker.getLatitude() + "", tracker.getLongitude() + "", this));
+    }
+
+    @Override
+    public void onProviderDisabled(String s)
+    {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String s)
+    {
+
+    }
+
+    @Override
+    public void onStatusChanged(String s, int i, Bundle bundle)
+    {
+
+    }
+
+    @Override
+    public void onLocationChanged(Location location)
+    {
+        Log.e("SignBoard Weather", "Location Changed: " + location.getLatitude() + " " + location.getLongitude());
+        mConnection.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, new WeatherConnectionInfo(location.getLatitude() + "", location.getLongitude() + "", this));
     }
 
     @Override
@@ -96,15 +129,6 @@ public class Weather extends AppWidgetProvider implements WeatherListener
         mView.setCharSequence(R.id.current_location, "setText", location);
         mView.setImageViewResource(R.id.current_condition_icon, info.iconRes);
         mView.setInt(R.id.current_condition_icon, "setColorFilter", Color.WHITE);
-
-//        mView.setInt(R.id.weather_loading, "setVisibility", View.GONE);
-//        mView.setInt(R.id.current_temp, "setVisibility", View.VISIBLE);
-//        mView.setInt(R.id.current_location, "setVisibility", View.VISIBLE);
-//        mView.setInt(R.id.current_condition_desc, "setVisibility", View.VISIBLE);
-//        mView.setInt(R.id.current_condition_icon, "setVisibility", View.VISIBLE);
-
-//        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, h:mm a", Locale.US);
-//        CharSequence currentDateandTime = sdf.format(new Date());
 
         Intent toYahoo = new Intent(Intent.ACTION_VIEW, Uri.parse(info.yahooUrl));
         PendingIntent yahooPend = PendingIntent.getActivity(mContext, 0, toYahoo, 0);
