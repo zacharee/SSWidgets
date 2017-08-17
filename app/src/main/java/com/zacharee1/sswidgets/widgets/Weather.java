@@ -40,6 +40,8 @@ import com.zacharee1.sswidgets.weather.WeatherListener;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -109,6 +111,14 @@ public class Weather extends AppWidgetProvider implements WeatherListener
         CharSequence temp = info.currentTemp + "°" + info.currentTempUnit;
         CharSequence condition = info.currentCondition;
         CharSequence location = info.cityName + ", " + info.stateName;
+        CharSequence date = info.pubDate;
+
+        ArrayList<CharSequence> dateElements = new ArrayList<CharSequence>(Arrays.asList(date.toString().split("[ ]")));
+
+        CharSequence day = dateElements.get(1);
+        CharSequence month = dateElements.get(2);
+        CharSequence time = dateElements.get(4);
+        CharSequence ampm = dateElements.get(5);
 
         mView.setCharSequence(R.id.current_temp, "setText", temp);
         mView.setCharSequence(R.id.current_condition_desc, "setText", condition);
@@ -122,10 +132,10 @@ public class Weather extends AppWidgetProvider implements WeatherListener
 //        mView.setInt(R.id.current_condition_desc, "setVisibility", View.VISIBLE);
 //        mView.setInt(R.id.current_condition_icon, "setVisibility", View.VISIBLE);
 
-        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, h:mm a", Locale.US);
-        CharSequence currentDateandTime = sdf.format(new Date());
+//        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, h:mm a", Locale.US);
+//        CharSequence currentDateandTime = sdf.format(new Date());
 
-        mView.setTextViewText(R.id.weather_time, currentDateandTime);
+        mView.setTextViewText(R.id.weather_time, month + " " + day + ", " + time + " " + ampm);
 
         mManager.updateAppWidget(mIds, mView);
     }
