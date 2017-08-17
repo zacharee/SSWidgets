@@ -51,6 +51,21 @@ public class Weather extends AppWidgetProvider implements WeatherListener, Locat
     private AppWidgetManager mManager;
 
     @Override
+    public void onReceive(Context context, Intent intent)
+    {
+        super.onReceive(context, intent);
+
+        Log.e("SignBoard Weather", "Received");
+        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+
+        try {
+            locationManager.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER, 900000, 1610, this);
+        } catch (SecurityException e) {
+            Log.e("SignBoard Weather", e.getLocalizedMessage());
+        }
+    }
+
+    @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds)
     {
         super.onUpdate(context, appWidgetManager, appWidgetIds);
@@ -62,9 +77,6 @@ public class Weather extends AppWidgetProvider implements WeatherListener, Locat
         mManager = appWidgetManager;
 
         queryWeatherInfo();
-
-        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-        locationManager.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER, 900000, 1610, this);
 
         appWidgetManager.updateAppWidget(appWidgetIds, mView);
     }
