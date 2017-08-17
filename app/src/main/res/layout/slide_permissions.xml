@@ -41,6 +41,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Grant BATTERY_STATS Permission" />
+
+        <Button
+            android:id="@+id/adb_instructions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ADB Instructions" />
     </LinearLayout>
 
     <LinearLayout

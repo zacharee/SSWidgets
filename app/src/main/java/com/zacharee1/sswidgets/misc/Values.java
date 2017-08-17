@@ -9,7 +9,7 @@ public class Values
 
     public static final String EXTRA_IMAGE_URI = "image_uri";
 
-    public static final String WEATHER_API_KEY = "weather_api_key";
+    public static final String ADB_URL = "http://zacharywander.tk/#sswidgets_adb";
 
     public static final int CONTACT_1 = 3;
     public static final int CONTACT_2 = 4;

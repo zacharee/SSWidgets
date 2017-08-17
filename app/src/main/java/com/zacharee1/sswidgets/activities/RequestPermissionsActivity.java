@@ -2,6 +2,7 @@ package com.zacharee1.sswidgets.activities;
 
 import android.Manifest;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
@@ -20,8 +21,11 @@ import com.github.paolorotolo.appintro.AppIntro2Fragment;
 import com.zacharee1.sswidgets.R;
 import com.zacharee1.sswidgets.misc.SuUtils;
 import com.zacharee1.sswidgets.misc.Util;
+import com.zacharee1.sswidgets.misc.Values;
 
 import java.util.List;
+
+import javax.xml.validation.Validator;
 
 public class RequestPermissionsActivity extends AppIntro2
 {
@@ -131,6 +135,7 @@ public class RequestPermissionsActivity extends AppIntro2
             mView.findViewById(R.id.request_perms_button).setOnClickListener(this);
             mView.findViewById(R.id.settings_write_button).setOnClickListener(this);
             mView.findViewById(R.id.battery_stats_button).setOnClickListener(this);
+            mView.findViewById(R.id.adb_instructions).setOnClickListener(this);
             mView.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark, null));
 
             TextView title = mView.findViewById(R.id.title);
@@ -163,6 +168,9 @@ public class RequestPermissionsActivity extends AppIntro2
                     } else {
                         Toast.makeText(getContext(), getResources().getString(R.string.no_root), Toast.LENGTH_LONG).show();
                     }
+                    break;
+                case R.id.adb_instructions:
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Values.ADB_URL)));
                     break;
             }
         }
