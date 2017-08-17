@@ -20,18 +20,6 @@ import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
-import com.survivingwithandroid.weather.lib.WeatherClient;
-import com.survivingwithandroid.weather.lib.WeatherConfig;
-import com.survivingwithandroid.weather.lib.client.volley.WeatherClientDefault;
-import com.survivingwithandroid.weather.lib.exception.WeatherLibException;
-import com.survivingwithandroid.weather.lib.model.City;
-import com.survivingwithandroid.weather.lib.model.CurrentWeather;
-import com.survivingwithandroid.weather.lib.provider.IProviderType;
-import com.survivingwithandroid.weather.lib.provider.forecastio.ForecastIOProviderType;
-import com.survivingwithandroid.weather.lib.provider.openweathermap.OpenweathermapProviderType;
-import com.survivingwithandroid.weather.lib.provider.wunderground.WeatherUndergroundProviderType;
-import com.survivingwithandroid.weather.lib.provider.yahooweather.YahooProviderType;
-import com.survivingwithandroid.weather.lib.request.WeatherRequest;
 import com.zacharee1.sswidgets.R;
 import com.zacharee1.sswidgets.misc.GPSTracker;
 import com.zacharee1.sswidgets.misc.Util;
@@ -64,27 +52,7 @@ public class Weather extends AppWidgetProvider implements WeatherListener
     {
         super.onUpdate(context, appWidgetManager, appWidgetIds);
 
-        WeatherConfig config = new WeatherConfig();
-//        config.ApiKey = PreferenceManager.getDefaultSharedPreferences(context).getString(Values.WEATHER_API_KEY, null);
-//
-//        if (config.ApiKey == null || config.ApiKey.isEmpty()) {
-//            Toast.makeText(context, context.getResources().getString(R.string.set_api_weather), Toast.LENGTH_LONG).show();
-//            return;
-//        }
-
-//        config.ApiKey = "dj0yJmk9TlV4NGl6c2UzQ0c5JmQ9WVdrOWRXczBUVTVWTnpBbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD1hOA--";
-//
         mView = new RemoteViews(context.getPackageName(), R.layout.layout_weather);
-//        try {
-//            mWeatherClient = new WeatherClient.ClientBuilder()
-//                    .attach(context)
-//                    .provider(new YahooProviderType())
-//                    .config(config)
-//                    .httpClient(WeatherClientDefault.class)
-//                    .build();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
 
         mConnection = new WeatherConnection();
 
