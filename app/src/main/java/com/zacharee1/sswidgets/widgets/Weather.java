@@ -49,7 +49,6 @@ public class Weather extends AppWidgetProvider implements WeatherListener, Locat
     private Context mContext;
     private int[] mIds;
     private AppWidgetManager mManager;
-    private WeatherConnection mConnection;
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds)
@@ -58,8 +57,6 @@ public class Weather extends AppWidgetProvider implements WeatherListener, Locat
 
         mView = new RemoteViews(context.getPackageName(), R.layout.layout_weather);
 
-        mConnection = new WeatherConnection();
-
         mContext = context;
         mIds = appWidgetIds;
         mManager = appWidgetManager;
@@ -67,7 +64,7 @@ public class Weather extends AppWidgetProvider implements WeatherListener, Locat
         queryWeatherInfo();
 
         LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-        locationManager.requestLocationUpdates("SignBoard Weather", 300000, 1610, this);
+        locationManager.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER, 900000, 1610, this);
 
         appWidgetManager.updateAppWidget(appWidgetIds, mView);
     }
@@ -75,7 +72,7 @@ public class Weather extends AppWidgetProvider implements WeatherListener, Locat
     private void queryWeatherInfo() {
         GPSTracker tracker = new GPSTracker(mContext);
         Log.e("SignBoard Weather", "Location: " + tracker.getLatitude() + " " + tracker.getLongitude());
-        mConnection.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, new WeatherConnectionInfo(tracker.getLatitude() + "", tracker.getLongitude() + "", this));
+        new WeatherConnection().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, new WeatherConnectionInfo(tracker.getLatitude() + "", tracker.getLongitude() + "", this));
     }
 
     @Override
@@ -100,7 +97,7 @@ public class Weather extends AppWidgetProvider implements WeatherListener, Locat
     public void onLocationChanged(Location location)
     {
         Log.e("SignBoard Weather", "Location Changed: " + location.getLatitude() + " " + location.getLongitude());
-        mConnection.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, new WeatherConnectionInfo(location.getLatitude() + "", location.getLongitude() + "", this));
+        new WeatherConnection().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, new WeatherConnectionInfo(location.getLatitude() + "", location.getLongitude() + "", this));
     }
 
     @Override
