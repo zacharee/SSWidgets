@@ -58,6 +58,11 @@ public class WeatherConnection extends AsyncTask<WeatherConnectionInfo, Void, We
             info.currentTempUnit = units.getString("temperature");
             info.pubDate = item.getString("pubDate");
             info.iconRes = parseCode(Integer.decode(current.getString("code")));
+            info.yahooUrl = item.getString("link").split("[*]")[1];
+
+            if (info.yahooUrl == null || info.yahooUrl.isEmpty()) {
+                info.yahooUrl = "https://www.yahoo.com/?ilc=401";
+            }
 
         } catch (Exception e) {
             mListener.onWeatherConnectionFailed(e.getMessage());

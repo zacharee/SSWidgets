@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_weather_layout"
     android:layout_width="1040px"
     android:layout_height="160px"
     android:gravity="center"
@@ -8,10 +9,10 @@
 
     <ProgressBar
         android:id="@+id/weather_loading"
-        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:visibility="gone" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -28,28 +29,45 @@
             android:src="@drawable/ic_wb_sunny_black_24dp"
             android:tint="#fff" />
 
-        <TextView
-            android:id="@+id/current_condition_desc"
-            android:layout_width="300px"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="20px"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Sunny"
-            android:textColor="#fff"
-            android:textSize="55px"
-            android:ellipsize="marquee"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:freezesText="true"
-            android:marqueeRepeatLimit="marquee_forever"
-            android:scrollHorizontally="false"
-            android:singleLine="true" >
-            <requestFocus
-                android:duplicateParentState="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/current_condition_desc"
+                android:layout_width="300px"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20px"
+                android:layout_weight="1"
+                android:ellipsize="marquee"
                 android:focusable="true"
-                android:focusableInTouchMode="true" />
-        </TextView>
+                android:focusableInTouchMode="true"
+                android:freezesText="true"
+                android:gravity="bottom"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:scrollHorizontally="false"
+                android:singleLine="true"
+                android:text="Sunny"
+                android:textColor="#fff"
+                android:textSize="55px">
+
+                <requestFocus
+                    android:duplicateParentState="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true" />
+            </TextView>
+
+            <ImageView
+                android:id="@+id/yahoo_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/yahoo" />
+        </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout

@@ -11,5 +11,6 @@ public class WeatherInfo
     public String currentTempUnit;
     public String currentCondition;
     public String pubDate;
+    public String yahooUrl;
     public int iconRes;
 }

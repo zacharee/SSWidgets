@@ -1,13 +1,16 @@
 package com.zacharee1.sswidgets.widgets;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.Icon;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -134,6 +137,11 @@ public class Weather extends AppWidgetProvider implements WeatherListener
 
 //        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, h:mm a", Locale.US);
 //        CharSequence currentDateandTime = sdf.format(new Date());
+
+        Intent toYahoo = new Intent(Intent.ACTION_VIEW, Uri.parse(info.yahooUrl));
+        PendingIntent yahooPend = PendingIntent.getActivity(mContext, 0, toYahoo, 0);
+
+        mView.setOnClickPendingIntent(R.id.yahoo_image, yahooPend);
 
         mView.setTextViewText(R.id.weather_time, month + " " + day + ", " + time + " " + ampm);
 
