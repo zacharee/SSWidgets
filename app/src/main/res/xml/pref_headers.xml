@@ -7,9 +7,4 @@
         android:summary="@string/color_desc"
         android:fragment="com.zacharee1.sswidgets.SettingsActivity$ColorPreferenceFragment" />
 
-    <header
-        android:title="@string/weather_label"
-        android:summary="@string/weather_desc"
-        android:fragment="com.zacharee1.sswidgets.SettingsActivity$WeatherPreferenceFragment" />
-
 </preference-headers>

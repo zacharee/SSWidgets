@@ -72,7 +72,6 @@ class SettingsActivity : AppCompatPreferenceActivity() {
     override fun isValidFragment(fragmentName: String): Boolean {
         return PreferenceFragment::class.java.name == fragmentName
                 || ColorPreferenceFragment::class.java.name == fragmentName
-                || WeatherPreferenceFragment::class.java.name == fragmentName
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -96,41 +95,6 @@ class SettingsActivity : AppCompatPreferenceActivity() {
                         true
                     }
                 }
-            }
-        }
-
-        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-            try {
-                val getListView = PreferenceFragment::class.java.getMethod("getListView")
-                val listView = getListView.invoke(this) as ListView
-                listView.divider = resources.getDrawable(R.drawable.horizontal_divider, null)
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-
-            super.onViewCreated(view, savedInstanceState)
-        }
-
-        override fun onOptionsItemSelected(item: MenuItem): Boolean {
-            val id = item.itemId
-            if (id == android.R.id.home) {
-                startActivity(Intent(activity, SettingsActivity::class.java))
-                return true
-            }
-            return super.onOptionsItemSelected(item)
-        }
-    }
-
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    class WeatherPreferenceFragment : PreferenceFragment() {
-        override fun onCreate(savedInstanceState: Bundle?) {
-            super.onCreate(savedInstanceState)
-            addPreferencesFromResource(R.xml.pref_weather)
-            setHasOptionsMenu(true)
-
-            findPreference("get_api_key").setOnPreferenceClickListener {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("http://home.openweathermap.org/users/sign_up")));
-                true
             }
         }
 

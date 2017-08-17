@@ -25,22 +25,35 @@
             android:layout_height="140px"
             android:layout_gravity="left|center_vertical"
             android:layout_weight="1"
-            android:src="@drawable/ic_wb_sunny_black_24dp" />
+            android:src="@drawable/ic_wb_sunny_black_24dp"
+            android:tint="#fff" />
 
         <TextView
             android:id="@+id/current_condition_desc"
-            android:layout_width="wrap_content"
+            android:layout_width="300px"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="20px"
             android:layout_weight="1"
-            android:textColor="#fff"
             android:text="Sunny"
-            android:textSize="60px" />
+            android:textColor="#fff"
+            android:textSize="55px"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:freezesText="true"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="false"
+            android:singleLine="true" >
+            <requestFocus
+                android:duplicateParentState="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true" />
+        </TextView>
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="550px"
         android:layout_height="match_parent"
         android:layout_gravity="right"
         android:orientation="vertical">
@@ -59,7 +72,7 @@
                 android:layout_weight="1"
                 android:text="100°"
                 android:textColor="#fff"
-                android:textSize="60px" />
+                android:textSize="55px" />
 
             <TextView
                 android:id="@+id/current_location"
@@ -67,14 +80,30 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20px"
+                android:layout_marginRight="10px"
+                android:ellipsize="marquee"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:freezesText="true"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:scrollHorizontally="false"
+                android:singleLine="true"
                 android:text="Philadelphia, PA"
                 android:textColor="#fff"
-                android:textSize="60px" />
+                android:textSize="55px">
+
+                <requestFocus
+                    android:duplicateParentState="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true" />
+
+            </TextView>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:orientation="horizontal">
 
             <TextView
@@ -83,7 +112,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/as_of"
                 android:textColor="#fff"
-                android:textSize="50px" />
+                android:textSize="40px" />
 
             <TextView
                 android:id="@+id/weather_time"
@@ -92,7 +121,7 @@
                 android:layout_marginLeft="20px"
                 android:text="test"
                 android:textColor="#fff"
-                android:textSize="50px" />
+                android:textSize="40px" />
 
         </LinearLayout>
     </LinearLayout>
