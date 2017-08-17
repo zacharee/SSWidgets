@@ -72,8 +72,8 @@
 
     <LinearLayout
         android:layout_width="550px"
-        android:layout_height="match_parent"
-        android:layout_gravity="right"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|center_vertical"
         android:orientation="vertical">
 
         <LinearLayout

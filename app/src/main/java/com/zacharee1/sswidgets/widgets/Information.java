@@ -415,7 +415,7 @@ public class Information extends AppWidgetProvider
         TelephonyManager tm = (TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE);
 
         try {
-            if (tm.getAllCellInfo().size() > 0)
+            if (tm.getAllCellInfo() != null && tm.getAllCellInfo().size() > 0)
             {
                 CellInfo info = tm.getAllCellInfo().get(0);
                 int strength = 0;
