@@ -11,6 +11,9 @@ public class Values
 
     public static final String ADB_URL = "http://zacharywander.tk/#sswidgets_adb";
 
+    public static final String LOCATION_LAT = "latitude";
+    public static final String LOCATION_LON = "longitude";
+
     public static final int CONTACT_1 = 3;
     public static final int CONTACT_2 = 4;
     public static final int CONTACT_3 = 5;

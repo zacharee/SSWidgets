@@ -19,6 +19,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyBw64fkobrhH6r5hrtaa1ADDfRp7it-F_8"/>
         <activity
             android:name=".SettingsActivity"
             android:label="@string/app_name"
@@ -72,6 +73,7 @@
         <activity android:name=".activities.ContactsConfigureActivity" />
         <activity android:name=".activities.AddContactActivity" />
         <activity android:name=".activities.RequestPermissionsActivity" />
+        <activity android:name=".activities.ChooseWeatherLocationActivity" />
 
         <receiver
             android:name=".widgets.Information"

@@ -5,6 +5,7 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -25,6 +26,7 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.zacharee1.sswidgets.R;
+import com.zacharee1.sswidgets.activities.ChooseWeatherLocationActivity;
 import com.zacharee1.sswidgets.misc.GPSTracker;
 import com.zacharee1.sswidgets.misc.Util;
 import com.zacharee1.sswidgets.misc.Values;
@@ -33,15 +35,8 @@ import com.zacharee1.sswidgets.weather.WeatherConnectionInfo;
 import com.zacharee1.sswidgets.weather.WeatherInfo;
 import com.zacharee1.sswidgets.weather.WeatherListener;
 
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import java.util.concurrent.Executor;
 
 public class Weather extends AppWidgetProvider implements WeatherListener, LocationListener
 {
@@ -63,6 +58,19 @@ public class Weather extends AppWidgetProvider implements WeatherListener, Locat
         } catch (SecurityException e) {
             Log.e("SignBoard Weather", e.getLocalizedMessage());
         }
+
+        SharedPreferences.OnSharedPreferenceChangeListener listener = new SharedPreferences.OnSharedPreferenceChangeListener()
+        {
+            @Override
+            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s)
+            {
+                if (s.equals(Values.LOCATION_LON) || s.equals(Values.LOCATION_LAT)) {
+                    queryWeatherInfo();
+                }
+            }
+        };
+
+        PreferenceManager.getDefaultSharedPreferences(context).registerOnSharedPreferenceChangeListener(listener);
     }
 
     @Override
@@ -71,6 +79,11 @@ public class Weather extends AppWidgetProvider implements WeatherListener, Locat
         super.onUpdate(context, appWidgetManager, appWidgetIds);
 
         mView = new RemoteViews(context.getPackageName(), R.layout.layout_weather);
+
+        Intent openChooser = new Intent(context, ChooseWeatherLocationActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, openChooser, 0);
+
+        mView.setOnClickPendingIntent(R.id.main_weather_layout, pendingIntent);
 
         mContext = context;
         mIds = appWidgetIds;
@@ -82,9 +95,20 @@ public class Weather extends AppWidgetProvider implements WeatherListener, Locat
     }
 
     private void queryWeatherInfo() {
-        GPSTracker tracker = new GPSTracker(mContext);
-        Log.e("SignBoard Weather", "Location: " + tracker.getLatitude() + " " + tracker.getLongitude());
-        new WeatherConnection().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, new WeatherConnectionInfo(tracker.getLatitude() + "", tracker.getLongitude() + "", this));
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+
+        String lat = preferences.getString(Values.LOCATION_LAT, null);
+        String lon = preferences.getString(Values.LOCATION_LON, null);
+
+        if (lon == null || lat == null) {
+            GPSTracker tracker = new GPSTracker(mContext);
+            lat = tracker.getLatitude() + "";
+            lon = tracker.getLongitude() + "";
+        }
+
+        Log.e("SignBoard Weather", "Location: " + lat + " " + lon);
+
+        new WeatherConnection().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, new WeatherConnectionInfo(lat, lon, this));
     }
 
     @Override
