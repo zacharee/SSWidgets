@@ -538,6 +538,15 @@ public class Information extends AppWidgetProvider
 
                 try
                 {
+//                    Class NotificationManagerService = Class.forName("com.android.server.notification.NotificationManagerService");
+//
+//                    Object notificationManagerService = getSystemService(Context.NOTIFICATION_SERVICE);
+//
+//                    Method getActiveNotifications = NotificationManagerService.getMethod("getActiveNotifications", String.class);
+//
+//                    StatusBarNotification[] notifications = (StatusBarNotification[]) getActiveNotifications.invoke(notificationManagerService, getPackageName());
+//                    notifications[0].getNotification().priority
+
 //                    Class INotificationManager = Class.forName("android.app.INotificationManager");
 //                    Class INotificationManager$Stub = Class.forName("android.app.INotificationManager$Stub");
 //                    Method asInterface = INotificationManager$Stub.getMethod("asInterface", IBinder.class);

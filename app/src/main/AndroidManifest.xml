@@ -19,7 +19,10 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyBw64fkobrhH6r5hrtaa1ADDfRp7it-F_8"/>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBw64fkobrhH6r5hrtaa1ADDfRp7it-F_8" />
+
         <activity
             android:name=".SettingsActivity"
             android:label="@string/app_name"
@@ -53,7 +56,6 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/weather_info" />
         </receiver>
-
         <receiver
             android:name=".widgets.Image"
             android:label="@string/image_label">
@@ -95,7 +97,7 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".activities.ImagePickerActivity"></activity>
+        <activity android:name=".activities.ImagePickerActivity" />
     </application>
 
 </manifest>

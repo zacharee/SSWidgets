@@ -65,4 +65,6 @@
     <string name="pick_location">Pick Location</string>
 
     <string name="current_location">Current Location</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 </resources>
